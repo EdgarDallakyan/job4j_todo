@@ -1,0 +1,24 @@
+<div th:fragment="tasklist(tasks)">
+    <div class="list-group mt-4">
+        <a th:each="task, iterStat : ${tasks}"
+           th:href="@{'/tasks/' + ${task.id}}"
+           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+           style="transition: background-color 0.2s ease;"
+           onmouseover="this.style.backgroundColor='#f8f9fa';"
+           onmouseout="this.style.backgroundColor='';">
+
+            <div class="me-3 fw-bold" th:text="${iterStat.index + 1}">1</div>
+            <div class="flex-grow-1">
+                <div class="fw-semibold"
+                     th:text="${task.title}"
+                     th:classappend="${task.done} ? ' text-decoration-line-through' : ''">
+                    Заголовок
+                </div>
+                <div class="text-muted small" th:text="${#temporals.format(task.created, 'dd.MM.yyyy HH:mm')}">Дата</div>
+            </div>
+            <div th:if="${task.done}" class="text-success fs-5">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div th:fragment="taskbar(activeTab)" class="bg-light border-bottom py-2">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="btn-group" role="group" aria-label="Фильтрация заданий">
+            <a href="/index" class="btn btn-outline-secondary btn-sm"
+               th:classappend="${activeTab == 'all'} ? ' active'">Все</a>
+            <a href="/tasks/done" class="btn btn-outline-secondary btn-sm"
+               th:classappend="${activeTab == 'done'} ? ' active'">Выполненные</a>
+            <a href="/tasks/pending" class="btn btn-outline-secondary btn-sm"
+               th:classappend="${activeTab == 'pending'} ? ' active'">Новые</a>
+        </div>
+        <a href="/tasks/new" class="btn btn-success btn-sm">Добавить задание</a>
+    </div>
+</div>

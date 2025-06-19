@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: header"></head>
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="fragments/titlebar :: titlebar"></div>
+<div class="container mb-4 flex-grow-1">
+    <h1 class="text-danger">Ошибка 404</h1>
+    <p th:text="${message}">Ресурс не найден</p>
+    <a href="/" class="btn btn-primary mt-3">На главную</a>
+</div>
+<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:include="fragments/header :: header"></head>
+<body class="d-flex flex-column min-vh-100">
+
+<div th:replace="fragments/titlebar :: titlebar"></div>
+
+<div th:replace="fragments/taskbar :: taskbar('all')"></div>
+
+<div class="container mb-4 flex-grow-1">
+
+    <div th:replace="fragments/tasklist :: tasklist(${tasks})"></div>
+
+</div>
+
+<footer th:include="fragments/footer :: footer"></footer>
+
+</body>
+</html>
