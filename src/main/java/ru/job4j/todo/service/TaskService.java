@@ -9,7 +9,7 @@ public interface TaskService {
 
     Task save(TaskDto taskDto);
 
-    boolean update(TaskDto taskDto);
+    void update(TaskDto taskDto);
 
     void delete(int id);
 

@@ -21,8 +21,8 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public boolean update(TaskDto taskDto) {
-        return simpleTaskStore.update(toEntity(taskDto));
+    public void update(TaskDto taskDto) {
+        simpleTaskStore.update(toEntity(taskDto));
     }
 
     @Override

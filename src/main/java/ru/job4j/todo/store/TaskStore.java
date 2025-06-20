@@ -9,7 +9,7 @@ public interface TaskStore {
 
     Task save(Task task);
 
-    boolean update(Task task);
+    void update(Task task);
 
     void delete(int id);
 
