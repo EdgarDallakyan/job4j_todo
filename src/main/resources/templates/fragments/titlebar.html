@@ -1,5 +1,13 @@
-<div th:fragment="titlebar" class="bg-dark text-light py-3">
-    <div class="container text-center">
-        <h1 class="h4 m-0">Приложение "TODO-лист"</h1>
+<div th:fragment="titlebar" class="bg-dark mb-4 text-light py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <h1 class="h5 m-0">Приложение "TODO-лист"</h1>
+        <div th:if="${user.name == 'Гость'}">
+            <a class="nav-link d-inline text-light me-3" th:href="@{/users/register}">Регистрация</a>
+            <a class="nav-link d-inline text-light" th:href="@{/users/login}">Войти</a>
+        </div>
+        <div th:if="${user.name != 'Гость'}">
+            <a class="nav-link d-inline text-light me-3" href="#" th:text="${user.name}"></a>
+            <a class="nav-link d-inline text-light" th:href="@{/users/logout}">Выйти</a>
+        </div>
     </div>
 </div>
