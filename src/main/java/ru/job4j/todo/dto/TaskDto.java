@@ -3,6 +3,7 @@ package ru.job4j.todo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.job4j.todo.model.User;
 
 import java.time.LocalDateTime;
 
@@ -16,4 +17,5 @@ public class TaskDto {
     private LocalDateTime created;
     private boolean done;
     private boolean editing;
+    private User user;
 }

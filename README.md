@@ -44,5 +44,5 @@ mvn spring-boot:run
 ![tasklist.png](img/tasklist.png)
 ### Карточка задачи
 ![createtask.png](img/createtask.png)
-### Форма регистрации
+### Форма входа
 ![register.png](img/register.png)

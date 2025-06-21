@@ -1,5 +1,6 @@
 package ru.job4j.todo.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.todo.dto.TaskDto;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.service.TaskService;
 
 import java.time.LocalDateTime;
@@ -37,10 +39,12 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/new")
-    public String createTask(Model model) {
+    public String createTask(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
         TaskDto taskDto = new TaskDto();
         taskDto.setEditing(true);
         taskDto.setCreated(LocalDateTime.now());
+        taskDto.setUser(user);
         model.addAttribute("task", taskDto);
         return "tasks/view";
     }

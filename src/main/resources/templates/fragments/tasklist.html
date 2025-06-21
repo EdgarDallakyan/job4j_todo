@@ -14,8 +14,12 @@
                      th:classappend="${task.done} ? ' text-decoration-line-through' : ''">
                     Заголовок
                 </div>
-                <div class="text-muted small" th:text="${#temporals.format(task.created, 'dd.MM.yyyy HH:mm')}">Дата</div>
+                <div class="text-muted small">
+                    <span th:text="${#temporals.format(task.created, 'dd.MM.yyyy HH:mm')}">Дата</span>
+                    <span th:if="${task.user != null}" class="ms-2" th:text="'Автор: ' + ${task.user.name}">Автор</span>
+                </div>
             </div>
+
             <div th:if="${task.done}" class="text-success fs-5">
                 <i class="bi bi-check-circle-fill"></i>
             </div>

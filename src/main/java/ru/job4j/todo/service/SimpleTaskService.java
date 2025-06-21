@@ -59,6 +59,7 @@ public class SimpleTaskService implements TaskService {
         task.setDescription(dto.getDescription());
         task.setCreated(dto.getCreated());
         task.setDone(dto.isDone());
+        task.setUser(dto.getUser());
         return task;
     }
 
@@ -70,6 +71,7 @@ public class SimpleTaskService implements TaskService {
         dto.setCreated(task.getCreated());
         dto.setDone(task.isDone());
         dto.setEditing(editing);
+        dto.setUser(task.getUser());
         return dto;
     }
 }
