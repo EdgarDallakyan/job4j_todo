@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import ru.job4j.todo.model.User;
 
 import java.time.LocalDateTime;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -19,4 +20,5 @@ public class TaskDto {
     private boolean editing;
     private User user;
     private int priorityId;
+    private List<Integer> categoryIds = new ArrayList<>();
 }

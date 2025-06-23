@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.todo.dto.TaskDto;
 import ru.job4j.todo.model.User;
+import ru.job4j.todo.service.CategoryService;
 import ru.job4j.todo.service.TaskService;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 public class TaskController {
 
     private final TaskService simpleTaskService;
+    private final CategoryService simpleCategoryService;
 
     @GetMapping({"/", "/index"})
     public String getIndex(Model model) {
@@ -47,6 +49,7 @@ public class TaskController {
         taskDto.setUser(user);
         taskDto.setPriorityId(2);
         model.addAttribute("task", taskDto);
+        model.addAttribute("categories", simpleCategoryService.findAll());
         return "tasks/view";
     }
 
@@ -66,6 +69,7 @@ public class TaskController {
     public String viewTask(@PathVariable int id, Model model) {
         TaskDto taskDto = simpleTaskService.findById(id, false);
         model.addAttribute("task", taskDto);
+        model.addAttribute("categories", simpleCategoryService.findAll());
         return "tasks/view";
     }
 
@@ -73,6 +77,7 @@ public class TaskController {
     public String editTask(@PathVariable int id, Model model) {
         TaskDto taskDto = simpleTaskService.findById(id, true);
         model.addAttribute("task", taskDto);
+        model.addAttribute("categories", simpleCategoryService.findAll());
         return "tasks/view";
     }
 

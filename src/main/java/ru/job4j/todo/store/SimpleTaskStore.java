@@ -35,13 +35,27 @@ public class SimpleTaskStore implements TaskStore {
 
     @Override
     public List<Task> findAll() {
-        return crudStore.query("FROM Task t JOIN FETCH t.priority ORDER BY t.id", Task.class);
+        return crudStore.query(
+                """
+                FROM Task t
+                LEFT JOIN FETCH t.priority
+                LEFT JOIN FETCH t.categories
+                ORDER BY t.id
+                """,
+                Task.class
+        );
     }
 
     @Override
     public List<Task> findByStatus(boolean done) {
         return crudStore.query(
-                "FROM Task t JOIN FETCH t.priority WHERE t.done=:done ORDER BY t.id", Task.class,
+                """
+                FROM Task t
+                LEFT JOIN FETCH t.priority
+                LEFT JOIN FETCH t.categories
+                WHERE t.done=:done ORDER BY t.id
+                """,
+                Task.class,
                 Map.of("done", done)
         );
     }
@@ -49,7 +63,13 @@ public class SimpleTaskStore implements TaskStore {
     @Override
     public Optional<Task> findById(int id) {
         return crudStore.optional(
-                "FROM Task t JOIN FETCH t.priority WHERE t.id=:id", Task.class,
+                """
+                       FROM Task t
+                       LEFT JOIN FETCH t.priority
+                       LEFT JOIN FETCH t.categories
+                       WHERE t.id=:id
+                       """,
+                Task.class,
                 Map.of("id", id)
         );
     }

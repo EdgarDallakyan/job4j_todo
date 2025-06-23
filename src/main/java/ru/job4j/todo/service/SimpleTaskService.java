@@ -3,12 +3,14 @@ package ru.job4j.todo.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.dto.TaskDto;
+import ru.job4j.todo.model.Category;
 import ru.job4j.todo.model.Task;
+import ru.job4j.todo.store.CategoryStore;
 import ru.job4j.todo.store.PriorityStore;
 import ru.job4j.todo.store.TaskStore;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +18,7 @@ public class SimpleTaskService implements TaskService {
 
     private final TaskStore simpleTaskStore;
     private final PriorityStore simplePriorityStore;
+    private final CategoryStore simpleCategoryStore;
 
     @Override
     public Task save(TaskDto taskDto) {
@@ -63,7 +66,15 @@ public class SimpleTaskService implements TaskService {
         task.setDone(dto.isDone());
         task.setUser(dto.getUser());
         task.setPriority(
-                simplePriorityStore.findById(dto.getPriorityId()).orElseThrow()
+                simplePriorityStore.findById(dto.getPriorityId())
+                        .orElseThrow(
+                                () -> new NoSuchElementException("Приоритет с id " + dto.getPriorityId() + "не найден")
+                        )
+        );
+        task.setCategories(
+                new HashSet<>(
+                        simpleCategoryStore.findByIds(dto.getCategoryIds())
+                )
         );
         return task;
     }
@@ -78,6 +89,12 @@ public class SimpleTaskService implements TaskService {
         dto.setEditing(editing);
         dto.setUser(task.getUser());
         dto.setPriorityId(task.getPriority().getId());
+        dto.setCategoryIds(
+                task.getCategories()
+                        .stream()
+                        .map(Category::getId)
+                        .collect(Collectors.toList())
+        );
         return dto;
     }
 }

@@ -19,13 +19,26 @@
                 <input type="hidden" th:field="*{user.id}" />
 
                 <div class="mb-3">
-                    <label class="form-label">Название</label>
+                    <label class="form-label fw-semibold">Название</label>
                     <input type="text" th:field="*{title}" class="form-control" th:disabled="${!task.editing}" />
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Описание</label>
+                    <label class="form-label fw-semibold">Описание</label>
                     <textarea th:field="*{description}" class="form-control" rows="4" th:disabled="${!task.editing}"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="categorySelect" class="form-label fw-semibold">Категории</label>
+                    <select id="categorySelect" name="categoryIds" multiple
+                            class="form-select rounded"
+                            th:disabled="${!task.editing}">
+                        <option th:each="cat : ${categories}"
+                                th:value="${cat.id}"
+                                th:text="${cat.name}"
+                                th:selected="${task.categoryIds.contains(cat.id)}">
+                        </option>
+                    </select>
                 </div>
 
                 <!-- Блок информации (приоритет, статус, автор) -->
@@ -47,22 +60,23 @@
                         </div>
 
                         <div th:if="${!task.editing}">
-            <span th:switch="${task.priorityId}">
-                <span th:case="1" style="color: red;">Срочно</span>
-                <span th:case="2" style="color: orange;">Нормально</span>
-                <span th:case="*">Не задан</span>
-            </span>
+                            <span th:switch="${task.priorityId}">
+                                <span th:case="1" style="color: red;">Срочно</span>
+                                <span th:case="2" style="color: orange;">Нормально</span>
+                                <span th:case="*">Не задан</span>
+                            </span>
                         </div>
                     </div>
 
                     <div class="text-end">
                         <div>
                             <strong>Статус:</strong>
-                            <span th:text="${task.done} ? 'Выполнено' : 'Новая'">Статус</span>
+                            <span class="text-muted" th:text="${task.done} ? 'Выполнено' : 'Новая'">Статус</span>
                         </div>
 
                         <div th:if="${task.user != null and task.user.name != null}">
-                            <small class="text-muted" th:text="'Автор: ' + ${task.user.name}">Автор</small>
+                            <strong>Автор:</strong>
+                            <span class="text-muted" th:text="${task.user.name}">Автор</span>
                         </div>
                     </div>
                 </div>
@@ -89,6 +103,19 @@
 </div>
 
 <footer th:include="fragments/footer :: footer"></footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const categorySelect = document.getElementById('categorySelect');
+
+        const choices = new Choices(categorySelect, {
+            removeItemButton: true,
+            searchEnabled: true,
+            shouldSort: false,
+            itemSelectText: '',
+        });
+    });
+</script>
 
 </body>
 </html>
