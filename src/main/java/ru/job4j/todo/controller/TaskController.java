@@ -45,6 +45,7 @@ public class TaskController {
         taskDto.setEditing(true);
         taskDto.setCreated(LocalDateTime.now());
         taskDto.setUser(user);
+        taskDto.setPriorityId(2);
         model.addAttribute("task", taskDto);
         return "tasks/view";
     }

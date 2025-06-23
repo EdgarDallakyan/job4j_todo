@@ -18,4 +18,5 @@ public class TaskDto {
     private boolean done;
     private boolean editing;
     private User user;
+    private int priorityId;
 }

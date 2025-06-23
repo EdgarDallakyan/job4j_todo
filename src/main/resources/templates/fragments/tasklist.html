@@ -23,6 +23,14 @@
             <div th:if="${task.done}" class="text-success fs-5">
                 <i class="bi bi-check-circle-fill"></i>
             </div>
+
+            <i class="fa-regular fa-circle ms-2"
+               th:classappend="${task.priority == null} ? 'text-secondary' :
+                   (${task.priority.name == 'normal'} ? 'text-warning' :
+                   (${task.priority.name == 'urgently'} ? 'text-danger' : 'text-secondary'))"
+               th:title="${task.priority != null ? task.priority.name : 'Нет приоритета'}">
+            </i>
+
         </a>
     </div>
 </div>

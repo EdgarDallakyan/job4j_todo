@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.dto.TaskDto;
 import ru.job4j.todo.model.Task;
+import ru.job4j.todo.store.PriorityStore;
 import ru.job4j.todo.store.TaskStore;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.NoSuchElementException;
 public class SimpleTaskService implements TaskService {
 
     private final TaskStore simpleTaskStore;
+    private final PriorityStore simplePriorityStore;
 
     @Override
     public Task save(TaskDto taskDto) {
@@ -60,6 +62,9 @@ public class SimpleTaskService implements TaskService {
         task.setCreated(dto.getCreated());
         task.setDone(dto.isDone());
         task.setUser(dto.getUser());
+        task.setPriority(
+                simplePriorityStore.findById(dto.getPriorityId()).orElseThrow()
+        );
         return task;
     }
 
@@ -72,6 +77,7 @@ public class SimpleTaskService implements TaskService {
         dto.setDone(task.isDone());
         dto.setEditing(editing);
         dto.setUser(task.getUser());
+        dto.setPriorityId(task.getPriority().getId());
         return dto;
     }
 }
