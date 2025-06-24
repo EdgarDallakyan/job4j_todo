@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +23,7 @@ public class Task {
     private int id;
     private String title;
     private String description;
-    private LocalDateTime created;
+    private ZonedDateTime created;
     private boolean done;
 
     @ManyToOne

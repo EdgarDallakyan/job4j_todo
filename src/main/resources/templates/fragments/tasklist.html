@@ -15,8 +15,8 @@
                     Заголовок
                 </div>
                 <div class="text-muted small">
-                    <span th:text="${#temporals.format(task.created, 'dd.MM.yyyy HH:mm')}">Дата</span>
-                    <span th:if="${task.user != null}" class="ms-2" th:text="'Автор: ' + ${task.user.name}">Автор</span>
+                    <span th:text="${task.createdFormatted}">Дата</span>
+                    <span class="ms-2" th:text="'Автор: ' + ${task.authorName}">Автор</span>
                 </div>
             </div>
 
@@ -25,10 +25,9 @@
             </div>
 
             <i class="fa-regular fa-circle ms-2"
-               th:classappend="${task.priority == null} ? 'text-secondary' :
-                   (${task.priority.name == 'normal'} ? 'text-warning' :
-                   (${task.priority.name == 'urgently'} ? 'text-danger' : 'text-secondary'))"
-               th:title="${task.priority != null ? task.priority.name : 'Нет приоритета'}">
+               th:classappend="${task.priorityId == 0} ? 'text-secondary' :
+                   (${task.priorityId == 2} ? 'text-warning' :
+                   (${task.priorityId == 1} ? 'text-danger' : 'text-secondary'))">
             </i>
 
         </a>

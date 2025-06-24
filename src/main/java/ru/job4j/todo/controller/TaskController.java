@@ -13,7 +13,7 @@ import ru.job4j.todo.model.User;
 import ru.job4j.todo.service.CategoryService;
 import ru.job4j.todo.service.TaskService;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Controller
 @AllArgsConstructor
@@ -23,20 +23,23 @@ public class TaskController {
     private final CategoryService simpleCategoryService;
 
     @GetMapping({"/", "/index"})
-    public String getIndex(Model model) {
-        model.addAttribute("tasks", simpleTaskService.findAll());
+    public String getIndex(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("tasks", simpleTaskService.getAllForUserTimezone(user));
         return "index";
     }
 
     @GetMapping("/tasks/done")
-    public String getDone(Model model) {
-        model.addAttribute("tasks", simpleTaskService.findByStatus(true));
+    public String getDone(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("tasks", simpleTaskService.findByStatusForUserTimezone(true, user));
         return "tasks/done";
     }
 
     @GetMapping("/tasks/pending")
-    public String getPending(Model model) {
-        model.addAttribute("tasks", simpleTaskService.findByStatus(false));
+    public String getPending(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("tasks", simpleTaskService.findByStatusForUserTimezone(false, user));
         return "tasks/pending";
     }
 
@@ -45,7 +48,7 @@ public class TaskController {
         User user = (User) session.getAttribute("user");
         TaskDto taskDto = new TaskDto();
         taskDto.setEditing(true);
-        taskDto.setCreated(LocalDateTime.now());
+        taskDto.setCreated(ZonedDateTime.now());
         taskDto.setUser(user);
         taskDto.setPriorityId(2);
         model.addAttribute("task", taskDto);

@@ -13,7 +13,9 @@
                   class="border p-4 rounded shadow-sm bg-white">
 
                 <input type="hidden" th:field="*{id}" />
-                <input type="hidden" th:field="*{created}" />
+                <input type="hidden"
+                       th:field="*{created}"
+                       th:value="${#temporals.format(task.created, 'yyyy-MM-dd''T''HH:mm:ssXXX')}" />
                 <input type="hidden" th:field="*{done}" />
                 <input type="hidden" th:field="*{editing}" />
                 <input type="hidden" th:field="*{user.id}" />
